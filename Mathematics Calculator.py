@@ -19,7 +19,7 @@ def algebra():
 
     if kind_of == "1":
         print("".center(len(msg), "-"))
-        x = int(input("What is the value of the first x? "))
+        x = int(input("\nWhat is the value of the first x? "))
         x1 = int(input("What is the value of the second x? "))
 
         y = int(input("What is the value of the first y? "))
@@ -32,11 +32,33 @@ def algebra():
         #This will create a new array(similar to a list).
         b = np.array([c,c1])
         z = np.linalg.solve(A,b)
-
+        
         print(z)
         
-    elif kind_of == "Factorization":
-        pass
+    elif kind_of == "2":
+        poly = input("What is the largest power on a varaible in your polynomial? ")
+
+        if poly == "2":
+            print("".center(len(msg), "-"))
+            x = int(input("\nWhat is the value of the squared variable? "))
+            y = int(input("\nWhat is the value of the varaible? "))
+            z = int(input("\nWhat is the value of the constant? "))
+
+            r = int(input("\nWhat is the value of x? "))
+
+            p = np.polyval([x,y,z], r)
+            #This will create the polynomial
+        elif poly == "3":
+            print("".center(len(msg), "-"))
+            r = int(input("\nWhat is the value of the cubed variable? "))
+            x = int(input("\nWhat is the value of the squared variable? "))
+            y = int(input("\nWhat is the value of the varaible? "))
+            z = int(input("\nWhat is the value of the constant? "))
+
+            q = int(input("\nWhat is the value of x? "))
+
+            p = np.polyval([r,x,y,z], q)
+        print("The answer was", p)
 
 def discrete():
     pass
