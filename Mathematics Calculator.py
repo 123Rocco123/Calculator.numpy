@@ -2,11 +2,17 @@ import math
 import numpy as np
 import sympy as sp
 
-choices = ["1) Algebra", "2) Discrete", "3) Calculus"]
-for x in choices:
-    print(x)
+def start():
+    choices = ["1) Algebra", "2) Discrete", "3) Calculus"]
+    for x in choices:
+        print(x)
 
-choice = input("\nWhat kind of operation do you want to do? ")
+    choice = input("\nWhat kind of operation do you want to do? ")
+    
+    if choice == "1":
+        algebra()
+    elif choice == "3":
+        calculus()
 
 def algebra():
     choices = ["\n1) Linear Equations", "2) Factorization"]
@@ -62,34 +68,20 @@ def algebra():
 
 def calculus():
     choice = int(input("\nInsert the level of differentiation: "))
-    choice1 = int(input("\nHow many x's are there? "))
+    #This will tell the differentiation attribute how many times the equation has to be differentiated. 
+    x = sp.Symbol("x")
+    #This states that "x" is a symbol rather than a string.
 
-    if choice == 1 and choice1 == 1:
-        first_x = int(input("\nWrite the coefficient in front of the x: "))
-        power_x = int(input("\nWhat is the x to the power of? "))
-        x = sp.Symbol("x")
-        
-        integer = int(input("\nWhat is the integer at the end of the equation? "))
-        
-        print(sp.diff(first_x*x**power_x + integer, x))
-    
-    elif choice == 1 and choice1 == 2:
-        first_x = int(input("\nWrite the coefficient in front of the x: "))
-        power_x = int(input("\nWhat is the x to the power of? "))
-        x = sp.Symbol("x")
-        
-        second_x = int(input("\nWhat is the coefficient in front of the secondx? "))
-        power1_x = int(input("\nWhat is the power of that x? "))
-        
-        integer = int(input("\nWhat is the integer at the end of the equation? "))
-        
-        print(sp.diff(first_x*x**power_x + second_x*x**power1_x+ integer, x))
+    print("Insert equation: ")
+    equation = input()
 
+    diffd_equ = (sp.diff(equation, x, choice))
+    print(diffd_equ)
+
+    with open("history.txt", "w") as history:
+        history.write(str(diffd_equ))
 
 def discrete():
     pass
 
-if choice == "1":
-    algebra()
-elif choice == "3":
-    calculus()
+start()
