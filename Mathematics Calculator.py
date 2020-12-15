@@ -85,7 +85,8 @@ def calculus():
         print("Insert equation: ")
         equation = input()
 
-        diffd_equ = (sp.diff(equation, x, choice))
+        diffd_equ = sp.pretty(sp.diff(equation, x, choice))
+        #The "sp.pretty" is used to output the answer in a more appealing form.
         print("\nYour answer is:", diffd_equ)
 
         history(diffd_equ)
@@ -104,7 +105,7 @@ def calculus():
             integ = sp.integrate(equation, (x, lower, upper))
             print("\nYour answer is:", integ)
         elif choice == "indefinite":
-            integ = sp.integrate(equation, x)
+            integ = sp.pretty(sp.integrate(equation, x))
             print("\nYour answer is:", integ)
 
         history(integ)
