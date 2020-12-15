@@ -14,6 +14,13 @@ def start():
     elif choice == "3":
         calculus()
 
+def history(x):
+    with open("history.txt", "w") as history:
+            history.write(str(x))
+
+def sub():
+    pass
+
 def algebra():
     choices = ["\n1) Linear Equations", "2) Factorization"]
     msg ="What kind of algebraic equation do you want to solve?"
@@ -64,22 +71,43 @@ def algebra():
             q = int(input("\nWhat is the value of x? "))
 
             p = np.polyval([r,x,y,z], q)
-        print("The answer was", p)
+        print("\nThe answer was", p)
 
 def calculus():
-    choice = int(input("\nInsert the level of differentiation: "))
-    #This will tell the differentiation attribute how many times the equation has to be differentiated. 
-    x = sp.Symbol("x")
-    #This states that "x" is a symbol rather than a string.
+    int_diff = input("Do you want to integrate or differentiate? ")
 
-    print("Insert equation: ")
-    equation = input()
+    if int_diff == "differentiate":
+        choice = int(input("\nInsert the level of differentiation: "))
+        #This will tell the differentiation attribute how many times the equation has to be differentiated. 
+        x = sp.Symbol("x")
+        #This states that "x" is a symbol rather than a string.
 
-    diffd_equ = (sp.diff(equation, x, choice))
-    print(diffd_equ)
+        print("Insert equation: ")
+        equation = input()
 
-    with open("history.txt", "w") as history:
-        history.write(str(diffd_equ))
+        diffd_equ = (sp.diff(equation, x, choice))
+        print("\nYour answer is:", diffd_equ)
+
+        history(diffd_equ)
+
+    elif int_diff == "integrate":
+        choice = input("\nDo you want to integrate an definite or indefinite integral? ")
+        x = sp.Symbol("x")
+
+        print("\nInsert Equation: ")
+        equation = input()
+
+        if choice == "definite":
+            upper = int(input("\nWrite the upper limit here please: "))
+            lower = int(input("\nWrite the lower limit here please: "))
+
+            integ = sp.integrate(equation, (x, lower, upper))
+            print("\nYour answer is:", integ)
+        elif choice == "indefinite":
+            integ = sp.integrate(equation, x)
+            print("\nYour answer is:", integ)
+
+        history(integ)
 
 def discrete():
     pass
