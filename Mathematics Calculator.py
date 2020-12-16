@@ -18,8 +18,18 @@ def history(x):
     with open("history.txt", "w") as history:
             history.write(str(x))
 
-def sub():
-    pass
+def substitute(input1):
+    x = sp.Symbol("x")
+    ans = input1
+    input_x = int(input("Insert value: "))
+
+    final = ans.subs(x, input_x)
+    #The variable "final" contains the code that will substitute the variable x with the value of x in answer.
+    print("Your final answer is", str(final))
+
+    history(str(final))
+    #This will record the answer of that the user got, and store it in the "history.txt" file.
+
 
 def algebra():
     choices = ["\n1) Linear Equations", "2) Factorization"]
@@ -77,6 +87,8 @@ def calculus():
     int_diff = input("Do you want to integrate or differentiate? ")
 
     if int_diff == "differentiate":
+        global diffd_equ
+
         choice = int(input("\nInsert the level of differentiation: "))
         #This will tell the differentiation attribute how many times the equation has to be differentiated. 
         x = sp.Symbol("x")
@@ -85,14 +97,22 @@ def calculus():
         print("Insert equation: ")
         equation = input()
 
-        diffd_equ = sp.pretty(sp.diff(equation, x, choice))
+        diffd_equ = sp.diff(equation, x, choice)
         #The "sp.pretty" is used to output the answer in a more appealing form.
-        print("\nYour answer is:", diffd_equ)
+        print("\nYour answer is:")
+        sp.pprint(diffd_equ)
 
         history(diffd_equ)
 
+        substitution = input("Do you want to substitute a value into x? ")
+
+        if substitution == "yes":
+            substitute(diffd_equ)
+
     elif int_diff == "integrate":
-        choice = input("\nDo you want to integrate an definite or indefinite integral? ")
+        global integ
+
+        choice = input("\nDo you want to integrate a definite or indefinite integral? ")
         x = sp.Symbol("x")
 
         print("\nInsert Equation: ")
@@ -103,10 +123,15 @@ def calculus():
             lower = int(input("\nWrite the lower limit here please: "))
 
             integ = sp.integrate(equation, (x, lower, upper))
-            print("\nYour answer is:", integ)
+            print("\nYour answer is:", sp.pretty(integ))
         elif choice == "indefinite":
             integ = sp.pretty(sp.integrate(equation, x))
-            print("\nYour answer is:", integ)
+            integ0 = sp.integrate(equation, x)
+            print("\nYour answer is:\n" + str(integ))
+
+            substitution = input("Do you want to substitute a value into x? ")
+            if substitution == "yes":
+                substitute(integ0)
 
         history(integ)
 
